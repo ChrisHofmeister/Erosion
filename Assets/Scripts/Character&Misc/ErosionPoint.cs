@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ErosionPoint : MonoBehaviour
 {
-    //array for the different sprites
+    //sprites
     [SerializeField] private Sprite[] erosionPointSprites;
+    private SpriteRenderer spriteRenderer;
 
     //instance of board class for getting boardSize
     private Board board;
@@ -80,6 +81,7 @@ public class ErosionPoint : MonoBehaviour
         column = (int)transform.position.x;
         row = (int)transform.position.y;
         gameManager = FindObjectOfType<GameManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
                
     }
 
@@ -725,6 +727,7 @@ public class ErosionPoint : MonoBehaviour
     //this moves the EP back to starting position. this will be followed by a move checker in GM
     public void SourceCheck()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;        
         willMove = true;
         column = board.riverStartX;
         row = board.riverStartY;
@@ -747,5 +750,15 @@ public class ErosionPoint : MonoBehaviour
                 board.allTilesArray[(int)transform.position.x, (int)transform.position.y].transform.GetChild(3).tag = "waterkeep";
             }
         }
+    }
+
+    public void SpriteOn()
+    {
+        spriteRenderer.enabled = true;
+    }
+
+    public void SpriteOff()
+    {
+        spriteRenderer.enabled = false;
     }
 }

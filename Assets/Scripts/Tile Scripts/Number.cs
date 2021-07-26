@@ -9,22 +9,26 @@ public class Number : MonoBehaviour
     private Board board;
     public int displayNumberIndex;
     private EarthTile parentEarthTile;
-    [SerializeField] private Sprite[] numberSprites;
-    public float lerpSpeed;
+    [SerializeField] private Sprite[] numberSprites;    
     int parentResistance;
+    public float spinSpeed;
+    private Animator anim;
 
     private void Start()
     {
         displayNumberIndex = 0;
         erosionPoint = FindObjectOfType<ErosionPoint>();
         board = FindObjectOfType<Board>();
-        parentEarthTile = GetComponentInParent<EarthTile>();
-        lerpSpeed = Time.deltaTime * 100f;
+        parentEarthTile = GetComponentInParent<EarthTile>();        
+        spinSpeed = .5f;
+        anim = GetComponent<Animator>();
+        anim.speed = spinSpeed;
+        ChangeIndexAndSprite();
     }
 
     private void Update()
     {
-        UpdateNumberIfChanged();        
+        
     }
 
     public void UpdateDisplayNumber(int resistance)
@@ -44,21 +48,23 @@ public class Number : MonoBehaviour
 
     }
 
-    public void UpdateNumberIfChanged()
+    public void PlayNumberSpin()
     {
-        int parentResistance = parentEarthTile.resistance;
 
-        if (parentResistance != displayNumberIndex)
+            anim.Play("Number Spin");
+  
+    }
+
+    public void ChangeIndexAndSprite()
+    {
+        if (parentEarthTile.resistance >= 0)
         {
-            if (parentResistance >= 0)
-            {
-                GetComponent<SpriteRenderer>().sprite = numberSprites[parentResistance];
-                displayNumberIndex = parentResistance;                
-            }
-            else
-            {
-                Debug.LogError("resistance is a negitive number");
-            }
+            displayNumberIndex = parentEarthTile.resistance;
+            GetComponent<SpriteRenderer>().sprite = numberSprites[displayNumberIndex];            
+        }
+        else
+        {
+            Debug.LogError("resistance is a negitive number");
         }
     }
 }

@@ -7,13 +7,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //erosion point so Gm can handle timing and order of opperations
-    private ErosionPoint erosionPoint;
+    private ErosionPoint erosionPoint;    
 
     //board so GM knows when game has sarted
     private Board board;
 
     //bool so you only set erosion point once
     private bool erosionPointSet;
+
 
     //delay, in seconds, so various action can complete before mving on
     private float lerpDelay = .6f;
@@ -26,11 +27,12 @@ public class GameManager : MonoBehaviour
     private GameObject[] allWaterKeepTiles;
     private Water waterTileScript;
 
-    //gameobject canvas for main, momentumlost, and ending
+    //gameobject canvas for main, momentumlost, and ending, power
     [SerializeField] private GameObject mainCanvas;
     [SerializeField] private GameObject alertPanel;
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private GameObject retryPanel;
+    [SerializeField] private GameObject powerPanel;
 
     //alert messaging game objects
     [SerializeField] private GameObject momentumLostText;
@@ -39,8 +41,9 @@ public class GameManager : MonoBehaviour
     //collider cover, due to strange bug, no longer serialized.  aquires ref at start using tag.  fixed bug, but left it as is
     private GameObject colliderCover;
 
-    //character emote stuff
+    //character stuff
     [SerializeField] private CharacterEmote characterEmote;
+    [SerializeField] private CharacterBody characterBody;
 
     //text to be updated
     [SerializeField] TextMeshProUGUI scoreText;
@@ -80,6 +83,10 @@ public class GameManager : MonoBehaviour
     //water tile scripts for edge check
     private Water[] waterTileScripts;
 
+    private RiverPathManager riverPathManager;
+
+    //number game objects so i can trun their sprite renderers off
+    private Number[] allNumbers;
 
 
     // Start is called before the first frame update
@@ -90,6 +97,7 @@ public class GameManager : MonoBehaviour
         colliderCover.SetActive(false);
         erosionPointSet = false;
         board = FindObjectOfType<Board>();
+        riverPathManager = FindObjectOfType<RiverPathManager>();
         endGamePanel.SetActive(false);
         alertPanel.SetActive(false);
         momentumLostText.SetActive(false);
@@ -102,6 +110,7 @@ public class GameManager : MonoBehaviour
         retryPanel.SetActive(false);
         exitMissedHeader.SetActive(false);
         prettyCloseHeader.SetActive(false);
+        powerPanel.SetActive(false);
 
         
     }
@@ -119,6 +128,7 @@ public class GameManager : MonoBehaviour
         //switch back at the end of lerpDelay()
         colliderCover.SetActive(true);
         skipMoveButton.SetActive(false);
+        characterBody.PlayJoystickAnimation();
        
         //setting erosion point only once
         if(!erosionPointSet)
@@ -127,17 +137,20 @@ public class GameManager : MonoBehaviour
             erosionPointSet = true;
         }        
         UpdateAllTileArrayPosition();
-        DisableWaterTiles();
-        RetagAllWaterKeepTiles();
+        //DisableWaterTiles();
+        //riverPathManager.GatherAllBedrockTiles();
+        //RetagAllWaterKeepTiles();
         erosionPoint.SourceCheck();        
         while (erosionPoint.willMove)
         {            
             erosionPoint.FindErosionDirection();
             erosionPoint.MoveChecker();
-            erosionPoint.TagWaterAsWaterKeep();
+            //erosionPoint.TagWaterAsWaterKeep();
         }
-        DisableWaterTiles();
+        //DisableWaterTiles();
+        riverPathManager.GatherAllBedrockTiles();
 
+        erosionPoint.SpriteOff();
         StartCoroutine(LerpDelay());
 
     }
@@ -147,9 +160,10 @@ public class GameManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(lerpDelay);
-
-        DisableWaterTiles();
-        RetagAllWaterKeepTiles();
+        erosionPoint.SpriteOn();
+        riverPathManager.GatherAllBedrockTiles();
+        //DisableWaterTiles();
+        //RetagAllWaterKeepTiles();
         UpdateAllEarthTilePosition();
         erosionPoint.SourceCheck();        
         while (erosionPoint.willMove)
@@ -160,6 +174,7 @@ public class GameManager : MonoBehaviour
         }        
         erosionPoint.FindErosionTargets();
         erosionPoint.ErodeTarget();
+        yield return new WaitForSeconds(.1f);
         UpdateAllEarthTilePosition();
         erosionPoint.SourceCheck();
         
@@ -169,8 +184,9 @@ public class GameManager : MonoBehaviour
             erosionPoint.MoveChecker();
             erosionPoint.TagWaterAsWaterKeep();
         }
-        DisableWaterTiles();
+        //DisableWaterTiles();        
 
+        
         StartCoroutine(EndCheck());
         
     }
@@ -193,7 +209,8 @@ public class GameManager : MonoBehaviour
             board.gameStarted = true;
         }
         UpdateAllTileArrayPosition();
-        DisableWaterTiles();
+        //DisableWaterTiles();
+        riverPathManager.GatherAllBedrockTiles();
         RetagAllWaterKeepTiles();
         erosionPoint.SourceCheck();
         while (erosionPoint.willMove)
@@ -202,8 +219,9 @@ public class GameManager : MonoBehaviour
             erosionPoint.MoveChecker();
             erosionPoint.TagWaterAsWaterKeep();
         }
-        DisableWaterTiles();
-
+        //DisableWaterTiles();
+        riverPathManager.GatherAllBedrockTiles();
+        erosionPoint.SpriteOff();
         StartCoroutine(LerpDelay());
 
     }
@@ -260,10 +278,13 @@ public class GameManager : MonoBehaviour
     IEnumerator EndCheck()
     {
 
-        UpdateTimer();
+        UpdateTimer();        
+
+        
+
+        riverPathManager.GatherAllBedrockTiles();
 
         yield return new WaitForSeconds(.1f);
-
 
 
         waterTileScripts = FindObjectsOfType<Water>();
@@ -361,6 +382,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator NoErosionAlertCR()
     {
+        erosionPoint.GetComponent<SpriteRenderer>().enabled = false;
         momentumLostText.SetActive(true);
         alertPanel.SetActive(true);
         colliderCover.SetActive(true);
@@ -382,6 +404,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EndGame()
     {
+        TurnOffNumbers();
         skipMoveButton.SetActive(false);
         colliderCover.SetActive(true);
         CalculateSoilBonus();
@@ -484,5 +507,14 @@ public class GameManager : MonoBehaviour
         characterEmote.EmoteQuestion();
         retryFinalScoreValue.text = egFinalScore.ToString();
         retryPanel.SetActive(true);
+    }
+
+    private void TurnOffNumbers()
+    {
+        allNumbers = FindObjectsOfType<Number>();
+        foreach(Number number in allNumbers)
+        {
+            number.GetComponent<SpriteRenderer>().sprite = null;
+        }
     }
 }

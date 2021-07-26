@@ -12,10 +12,15 @@ public class Soil : MonoBehaviour
 
     private GameObject targetGameObject;
 
+    private Seed childSeed;
+
+    public int rainBonus;
+
     // Start is called before the first frame update
     void Start()
     {
-        board = FindObjectOfType<Board>();   
+        board = FindObjectOfType<Board>();
+        childSeed = GetComponentInChildren<Seed>();
     }
 
     // Update is called once per frame
@@ -34,8 +39,26 @@ public class Soil : MonoBehaviour
         CheckUpLeft();
         CheckDownRight();
         CheckDownLeft();
+        CheckRainBonus();
+
+        if(waterNeighbors != 0)
+        {
+            childSeed.PlayGrowAnimation(waterNeighbors);
+        }
 
         return soilBonus;
+    }
+
+    private void CheckRainBonus()
+    {
+        if(rainBonus >= 1)
+        {
+            for(int rainLoop = 0; rainLoop < rainBonus; rainLoop++)
+            {
+                waterNeighbors += 1;
+                soilBonus += 150;
+            }
+        }
     }
 
 

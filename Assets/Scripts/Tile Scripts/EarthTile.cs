@@ -48,11 +48,17 @@ public class EarthTile : MonoBehaviour
 
 
 
-    //Game Manager game object, will dictate when actions take place
+    //Game Manager and Powers Manager game objects
     private GameManager gameManager;
+    private PowersManager powersManager;
 
     //int for how many points are scored when tile is eroded
     [SerializeField] int points;
+
+    //child number for animation
+    private Number childNumber;
+
+   
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +68,8 @@ public class EarthTile : MonoBehaviour
         erosionPoint = FindObjectOfType<ErosionPoint>();
         gameManager = FindObjectOfType<GameManager>();
         startingResistance = resistance;
+        childNumber = GetComponentInChildren<Number>();
+        powersManager = FindObjectOfType<PowersManager>();
 
         //setting column and row variables  = to current position. targ x&y will be used for movement
         //unless a move has been made, the tile copies created will have this info set farther in script
@@ -201,7 +209,9 @@ public class EarthTile : MonoBehaviour
         //to allow a click without and release without moving, say the player makes an error... 
         //the mouse must have traveled farther than the clickDeadZone to trigger
 
-        if (Mathf.Abs(firstTouchPosition.x - finalTouchPosition.x) > clickDeadZone || Mathf.Abs(firstTouchPosition.y - finalTouchPosition.y) > clickDeadZone)
+        if (Mathf.Abs(firstTouchPosition.x - finalTouchPosition.x) > clickDeadZone 
+            || Mathf.Abs(firstTouchPosition.y - finalTouchPosition.y) > clickDeadZone
+            && powersManager.powerModeOn == false)
         {
             CalculateAngle();
 
@@ -209,6 +219,15 @@ public class EarthTile : MonoBehaviour
             MoveTiles();
             // ****************erosionPoint.multiPath = false;            
             gameManager.Erosion();
+        }
+
+        if (powersManager.powerModeOn == true)
+        {
+            if(powersManager.activePower == "rain")
+            {
+                powersManager.UseRainpower(ReturnLocation());
+            }
+            
         }
 
     }
@@ -248,7 +267,7 @@ public class EarthTile : MonoBehaviour
                     tileCopy.GetComponent<EarthTile>().column = 1;
                     
                     tileCopy.tag = "1," + row;
-
+                    tileCopy.GetComponentInChildren<Number>().displayNumberIndex = tileCopy.GetComponent<EarthTile>().resistance;
                 }
             }
 
@@ -278,6 +297,7 @@ public class EarthTile : MonoBehaviour
                     tileCopy.GetComponent<EarthTile>().row = 1;
                     
                     tileCopy.tag = column + ",1";
+                    tileCopy.GetComponentInChildren<Number>().displayNumberIndex = tileCopy.GetComponent<EarthTile>().resistance;
                 }
             }
 
@@ -303,6 +323,7 @@ public class EarthTile : MonoBehaviour
                     tileCopy.GetComponent<EarthTile>().column = board.boardSize;
 
                     tileCopy.tag = board.boardSize + "," + row;
+                    tileCopy.GetComponentInChildren<Number>().displayNumberIndex = tileCopy.GetComponent<EarthTile>().resistance;
                 }
 
                 tileToMove.tag = column
@@ -334,6 +355,7 @@ public class EarthTile : MonoBehaviour
                     tileCopy.GetComponent<EarthTile>().row = board.boardSize;
 
                     tileCopy.tag = column + "," + board.boardSize;
+                    tileCopy.GetComponentInChildren<Number>().displayNumberIndex = tileCopy.GetComponent<EarthTile>().resistance;
                 }
 
                 tileToMove.tag = tileToMove.GetComponent<EarthTile>().column
@@ -363,6 +385,7 @@ public class EarthTile : MonoBehaviour
         if (resistance > 0)
         {
             resistance--;
+            childNumber.PlayNumberSpin();
         }
     }
     
@@ -387,5 +410,11 @@ public class EarthTile : MonoBehaviour
     public void UpdatePositionTag()
     {
         this.gameObject.tag = column + "," + row;
+    }
+
+    public Vector2 ReturnLocation()
+    {
+
+        return new Vector2(column, row);
     }
 }

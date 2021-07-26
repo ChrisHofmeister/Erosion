@@ -24,20 +24,27 @@ public class Bedrock : MonoBehaviour
     private GameObject targetTile;
 
     //water script and GO for child water
-    private Water childWater;
+    public Water childWater;
 
     //refrence to earthtile script attached to this game object to get position
     private EarthTile earthTile;
+    
+    public float distanceFromSource;
+    private void Awake()
+    {
+        board = FindObjectOfType<Board>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         //when the tile is created, runs set up
         
-        board = FindObjectOfType<Board>();
+               
         earthTile = GetComponent<EarthTile>();
         TileSetUp();
         childWater = GetComponentInChildren<Water>();
+        childWater.WaterOn();
         
     }
 
@@ -47,8 +54,9 @@ public class Bedrock : MonoBehaviour
         if (earthTile.column >= 1 && earthTile.column <= board.boardSize
             && earthTile.row >= 1 && earthTile.row <= board.boardSize)
         {
-            CheckSurroundingsAndAct();
+           // CheckSurroundingsAndAct();
         }
+        UpdateDistanceFromSource();
     }
 
     private void TileSetUp()
@@ -213,7 +221,122 @@ public class Bedrock : MonoBehaviour
         }
         else { return false; }
     }
+       
+    public Bedrock CheckUpForBedrock()
+    {
+        int objectX = (int)transform.position.x;
+        int objectY = (int)transform.position.y + 1;
+
+        /*var objectTagNameX = objectX.ToString();
+        var objectTagNameY = objectY.ToString();*/
+
+        if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
+        {
+            targetObject = board.allTilesArray[objectX, objectY];
+        }
 
 
 
+        if (targetObject != null && targetObject.GetComponent<Bedrock>() != null)
+        {
+            return targetObject.GetComponent<Bedrock>();
+        }
+        else { return null; }
+    }
+    //check down and return true if river is child down
+    public Bedrock CheckDownForBedrock()
+    {
+        int objectX = (int)transform.position.x;
+        int objectY = (int)transform.position.y - 1;
+
+        /*var objectTagNameX = objectX.ToString();
+        var objectTagNameY = objectY.ToString();*/
+
+        if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
+        {
+            targetObject = board.allTilesArray[objectX, objectY];
+        }
+        
+
+
+
+        if (targetObject != null && targetObject.GetComponent<Bedrock>() != null)
+        {
+            return targetObject.GetComponent<Bedrock>();
+        }
+        else { return null; }
+    }
+    //check down and return true if river is child right
+    public Bedrock CheckRightForBedrock()
+    {
+        int objectX = (int)transform.position.x + 1;
+        int objectY = (int)transform.position.y;
+
+        /*var objectTagNameX = objectX.ToString();
+        var objectTagNameY = objectY.ToString();*/
+
+        if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
+        {
+            targetObject = board.allTilesArray[objectX, objectY];
+        }
+
+
+
+        if (targetObject != null && targetObject.GetComponent<Bedrock>() != null)
+        {
+            return targetObject.GetComponent<Bedrock>();
+        }
+        else { return null; }
+    }
+    //check down and return true if river is child left
+    public Bedrock CheckLeftForBedrock()
+    {
+        int objectX = (int)transform.position.x - 1;
+        int objectY = (int)transform.position.y;
+
+        /*var objectTagNameX = objectX.ToString();
+        var objectTagNameY = objectY.ToString();*/
+
+        if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
+        {
+            targetObject = board.allTilesArray[objectX, objectY];
+        }
+
+
+
+        if (targetObject != null && targetObject.GetComponent<Bedrock>() != null)
+        {
+            return targetObject.GetComponent<Bedrock>();
+        }
+        else { return null; }
+    }
+
+    private void UpdateDistanceFromSource()
+    {
+        distanceFromSource = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(transform.position.x - board.riverStartX),2) + Mathf.Pow(Mathf.Abs(transform.position.y - board.riverStartY), 2));
+    }
+
+    public List<Bedrock> CheckForNeighbors()
+    {
+        List<Bedrock> tileNeighbors = new List<Bedrock>();
+
+        if(CheckUpForBedrock() != null)
+        {
+            tileNeighbors.Add(CheckUpForBedrock());
+        }
+        if (CheckDownForBedrock() != null)
+        {
+            tileNeighbors.Add(CheckDownForBedrock());
+        }
+        if (CheckRightForBedrock() != null)
+        {
+            tileNeighbors.Add(CheckRightForBedrock());
+        }
+        if (CheckLeftForBedrock() != null)
+        {
+            tileNeighbors.Add(CheckLeftForBedrock());
+        }
+
+        return tileNeighbors;
+    }
 }

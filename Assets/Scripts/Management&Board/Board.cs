@@ -289,7 +289,7 @@ public class Board : MonoBehaviour
             //must ensure boardsize is correct for playtest
             //ensure the playtest tiles array has the correct length for the playtest
             playtestIndex = new List<int>();
-            playtestTiles = new GameObject[9];
+            playtestTiles = new GameObject[16];
 
             /*playtesting set up will be a manual process, setting the tiles and board size below. 
             adding to playtest index the tiles you want to see based on their positions in earthtTiles[]
@@ -305,9 +305,10 @@ public class Board : MonoBehaviour
             // left to right is bottom to top starting and first row is first column
             //as ifyou took the array and tilted it 90 deg counter clockwise
 
-            playtestIndex.Add(2); playtestIndex.Add(1); playtestIndex.Add(2); 
-            playtestIndex.Add(1); playtestIndex.Add(1); playtestIndex.Add(1); 
-            playtestIndex.Add(2); playtestIndex.Add(2); playtestIndex.Add(2); 
+            playtestIndex.Add(2); playtestIndex.Add(1); playtestIndex.Add(2); playtestIndex.Add(2);
+            playtestIndex.Add(2); playtestIndex.Add(1); playtestIndex.Add(0); playtestIndex.Add(0);
+            playtestIndex.Add(1); playtestIndex.Add(1); playtestIndex.Add(1); playtestIndex.Add(2);
+            playtestIndex.Add(2); playtestIndex.Add(2); playtestIndex.Add(2); playtestIndex.Add(2);
 
             int i = 0;
             foreach (int index in playtestIndex)
@@ -322,7 +323,7 @@ public class Board : MonoBehaviour
             //when in playtest mode, river start and end points can be set here
 
             riverStartX = 2;
-            riverStartY = 4;
+            riverStartY = 5;
 
             riverEndX = 2;
             riverEndY = 0;

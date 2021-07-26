@@ -96,10 +96,18 @@ public class Water : MonoBehaviour
         testingWaterMatches = 0;
         testingWaterMatchNumber = 99999999;
         //depending on what water surrounds tile, will change the sprite and orientation
-        
-        //1-only up
-        if (up && !down && !right && !left && !diagUpRight 
+
+        //000-waterOff nothing around
+        if (!up && !down && !right && !left && !diagUpRight
             && !diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            WaterOff();            
+            testingWaterMatches++;
+            testingWaterMatchNumber = 000;
+        }
+        //1-only up
+        else if (up && !down && !right && !left
+            && !diagUpRight && !diagUpLeft && !diagDownRight && !diagDownLeft)
         {
             GetComponent<SpriteRenderer>().sprite = waterSprites[3];
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -223,7 +231,6 @@ public class Water : MonoBehaviour
             testingWaterMatches++;
             testingWaterMatchNumber = 12;
         }
-
         //13-up right diagUpRight
         else if (up && !down && right && !left
             && diagUpRight && !diagUpLeft && !diagDownRight && !diagDownLeft)
@@ -1809,8 +1816,268 @@ public class Water : MonoBehaviour
             testingWaterMatches++;
             testingWaterMatchNumber = 188;
         }
-
-
+        //189-up down diagUpRight diagUpLeft diagDownRight diagDownLeft
+        else if (up && down && !right && !left
+            && diagUpRight && diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 189;
+        }
+        //190-up down diagUpLeft diagDownRight diagDownLeft
+        else if (up && down && !right && !left
+            && !diagUpRight && diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 190;
+        }
+        //191-up down diagUpRight diagDownRight diagDownLeft
+        else if (up && down && !right && !left
+            && diagUpRight && !diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 191;
+        }
+        //192-up down diagUpRight diagUpLeft diagDownLeft
+        else if (up && down && !right && !left
+            && diagUpRight && diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 192;
+        }
+        //193-up down diagUpRight diagUpLeft diagDownRight
+        else if (up && down && !right && !left
+            && diagUpRight && diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 193;
+        }
+        //194-right left diagUpRight diagUpLeft diagDownRight diagDownLeft
+        else if (!up && !down && right && left
+            && diagUpRight && diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 194;
+        }
+        //195-right left diagUpLeft diagDownRight diagDownLeft
+        else if (!up && !down && right && left
+            && !diagUpRight && diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 195;
+        }
+        //196-right left diagUpRight diagDownRight diagDownLeft
+        else if (!up && !down && right && left
+            && diagUpRight && !diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 196;
+        }
+        //197-right left diagUpRight diagUpLeft diagDownLeft
+        else if (!up && !down && right && left
+            && diagUpRight && diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 197;
+        }
+        //198-right left diagUpRight diagUpLeft diagDownRight
+        else if (!up && !down && right && left
+            && diagUpRight && diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[0];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 198;
+        }
+        //199-up down rightdiagUpLeft diagDownLeft
+        else if (up && down && right && !left
+            && !diagUpRight && diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 199;
+        }
+        //200-up down right diagUpLeft
+        else if (up && down && right && !left
+            && !diagUpRight && diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 200;
+        }
+        //201-up down right diagDownLeft
+        else if (up && down && right && !left
+            && !diagUpRight && !diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 270);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 201;
+        }
+        //202-up down left diagUpRight diagDownRight
+        else if (up && down && !right && left
+            && diagUpRight && !diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 202;
+        }
+        //203-up down left diagUpRight
+        else if (up && down && !right && left
+            && diagUpRight && !diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 203;
+        }
+        //204-up down left diagDownRight
+        else if (up && down && !right && left
+            && !diagUpRight && !diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 204;
+        }
+        //205-down right left diagUpRight diagUpLeft
+        else if (!up && down && right && left
+            && diagUpRight && diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 205;
+        }
+        //206-down right left diagUpRight
+        else if (!up && down && right && left
+            && diagUpRight && !diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 206;
+        }
+        //207-down right left diagUpLeft
+        else if (!up && down && right && left
+            && !diagUpRight && diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 207;
+        }
+        //208-up right left diagDownRight diagDownLeft
+        else if (up && !down && right && left
+            && !diagUpRight && !diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 208;
+        }
+        //209-up right left diagDownRight
+        else if (up && !down && right && left
+            && !diagUpRight && !diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 209;
+        }
+        //210-up right left diagDownLeft
+        else if (up && !down && right && left
+            && !diagUpRight && !diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            GetComponent<SpriteRenderer>().sprite = waterSprites[2];
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            testingWaterMatches++;
+            testingWaterMatchNumber = 210;
+        }
+        //211-waterOff diagUpRight
+        else if (!up && !down && !right && !left
+            && diagUpRight && !diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 211;
+        }
+        //212-waterOff diagUpLeft
+        else if (!up && !down && !right && !left
+            && !diagUpRight && diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 212;
+        }
+        //213-waterOff diagDownRight
+        else if (!up && !down && !right && !left
+            && !diagUpRight && !diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 213;
+        }
+        //214-waterOff diagDownLeft
+        else if (!up && !down && !right && !left
+            && !diagUpRight && !diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 214;
+        }
+        //215-waterOff diagUpRight diagUpLeft
+        else if (!up && !down && !right && !left
+            && diagUpRight && diagUpLeft && !diagDownRight && !diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 215;
+        }
+        //216-waterOff diagDownRight diagDownLeft
+        else if (!up && !down && !right && !left
+            && !diagUpRight && !diagUpLeft && diagDownRight && diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 216;
+        }
+        //217-waterOff diagUpRight diagDownRight
+        else if (!up && !down && !right && !left
+            && diagUpRight && !diagUpLeft && diagDownRight && !diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 217;
+        }
+        //218-waterOff diagUpLeft diagDownLeft
+        else if (!up && !down && !right && !left
+            && !diagUpRight && diagUpLeft && !diagDownRight && diagDownLeft)
+        {
+            WaterOff();
+            testingWaterMatches++;
+            testingWaterMatchNumber = 218;
+        }
 
 
 
@@ -1838,8 +2105,6 @@ public class Water : MonoBehaviour
         int objectX = (int)GetComponentInParent<Transform>().position.x;        
         int objectY = (int)GetComponentInParent<Transform>().position.y + 1;
 
-        /*var objectTagNameX = objectX.ToString();
-        var objectTagNameY = objectY.ToString();*/
         if(objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
         {
             targetObject = board.allTilesArray[objectX, objectY];
@@ -1847,7 +2112,7 @@ public class Water : MonoBehaviour
         
 
         if (targetObject != null && targetObject.GetComponentInChildren<Water>() != null
-            && targetObject.GetComponentInChildren<Water>().waterOn == true)
+            && targetObject.GetComponentInChildren<Water>().waterOn == true && targetObject != parentEarthTile.gameObject)
         {
             return true;
         }
@@ -1859,15 +2124,13 @@ public class Water : MonoBehaviour
         int objectX = (int)GetComponentInParent<Transform>().position.x;
         int objectY = (int)GetComponentInParent<Transform>().position.y - 1;
 
-        /*var objectTagNameX = objectX.ToString();
-        var objectTagNameY = objectY.ToString();*/
         if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
         {
             targetObject = board.allTilesArray[objectX, objectY];
         }
 
         if (targetObject != null && targetObject.GetComponentInChildren<Water>() != null
-            && targetObject.GetComponentInChildren<Water>().waterOn == true)
+            && targetObject.GetComponentInChildren<Water>().waterOn == true && targetObject != parentEarthTile.gameObject)
         {
             return true;
         }
@@ -1879,14 +2142,13 @@ public class Water : MonoBehaviour
         int objectX = (int)GetComponentInParent<Transform>().position.x + 1;
         int objectY = (int)GetComponentInParent<Transform>().position.y;
 
-        /*var objectTagNameX = objectX.ToString();
-        var objectTagNameY = objectY.ToString();*/
         if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
         {
             targetObject = board.allTilesArray[objectX, objectY];
         }
 
-        if (targetObject != null && targetObject.GetComponentInChildren<Water>() != null)
+        if (targetObject != null && targetObject.GetComponentInChildren<Water>() != null
+            && targetObject.GetComponentInChildren<Water>().waterOn == true && targetObject != parentEarthTile.gameObject)
         {
             return true;
         }
@@ -1898,15 +2160,13 @@ public class Water : MonoBehaviour
         int objectX = (int)GetComponentInParent<Transform>().position.x - 1;
         int objectY = (int)GetComponentInParent<Transform>().position.y;
 
-        /*var objectTagNameX = objectX.ToString();
-        var objectTagNameY = objectY.ToString();*/
         if (objectX >= 0 && objectX <= board.boardSize + 1 && objectY >= 0 && objectY <= board.boardSize + 1)
         {
             targetObject = board.allTilesArray[objectX, objectY];
         }
 
         if (targetObject != null && targetObject.GetComponentInChildren<Water>() != null
-            && targetObject.GetComponentInChildren<Water>().waterOn == true)
+            && targetObject.GetComponentInChildren<Water>().waterOn == true && targetObject != parentEarthTile.gameObject)
         {
             return true;
         }
