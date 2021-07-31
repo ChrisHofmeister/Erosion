@@ -32,6 +32,12 @@ public class Board : MonoBehaviour
     public GameObject[,] allTilesArray;
     int tileToUse = 0;
 
+    //managers
+    private GameManager gameManager;
+    private UpgradesManager upgradesManager;
+    private StoryManager storyManager;
+
+
     //gameobject needed to remove tag from background tiles when eath tile is placed
     private GameObject targetObject;
 
@@ -113,7 +119,25 @@ public class Board : MonoBehaviour
     int endingEdge;
     int endingPoint;
 
-    
+    //bool for storymode
+    private bool storyModeActive;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        upgradesManager = FindObjectOfType<UpgradesManager>();
+        storyManager = FindObjectOfType<StoryManager>();
+
+        if(storyManager != null)
+        {
+            storyModeActive = true;
+        }
+        else
+        {
+            storyModeActive = false;
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -159,6 +183,9 @@ public class Board : MonoBehaviour
         //if we are not in playtest mode the array is shuffled.  this keeps the distro of the tiles
         //the same but changes their order
 
+
+        //will eventually change so first time through story stage, it is a set board.  subseq will be randomized
+        //right now, all randomized
         if (!playtestMode)
         {
 
@@ -261,7 +288,7 @@ public class Board : MonoBehaviour
         upTileShredder.SetActive(false);
         downTileShredder.SetActive(false);
 
-        if (playtestMode == false)
+        if (!playtestMode && !storyModeActive)
         {
             //still within set up, run methods to place start, end, and erosion points
             RandomizeRiverStartAndEndPoints();
@@ -283,6 +310,10 @@ public class Board : MonoBehaviour
 
     private void CheckForGameMode()
     {
+        if (gameManager.storyModeActive)
+        {
+            SetUpStoryStage();
+        }
 
         if (playtestMode)
         {
@@ -365,6 +396,38 @@ public class Board : MonoBehaviour
             }
 
         }
+    }
+
+    public void SetUpStoryStage()
+    {
+        if(storyManager.stageTiles.Length == 9)
+        {
+            boardSize = 3;
+            tileArrayToUse = threeBoardTiles;
+        }
+        if (storyManager.stageTiles.Length == 16)
+        {
+            boardSize = 4;
+            tileArrayToUse = fourBoardTiles;
+        }
+        if (storyManager.stageTiles.Length == 25)
+        {
+            boardSize = 5;
+            tileArrayToUse = fiveBoardTiles;
+        }
+        if (storyManager.stageTiles.Length == 36)
+        {
+            boardSize = 6;
+            tileArrayToUse = sixBoardTiles;
+        }
+
+        riverStartX = (int)storyManager.stageRiverStartPos.x;
+        riverStartY = (int)storyManager.stageRiverStartPos.y;
+
+        riverEndX = (int)storyManager.stageRiverEndPos.x;
+        riverEndY = (int)storyManager.stageRiverEndPos.y;
+
+        //tileArrayToUse = stageTiles;
     }
 
     //

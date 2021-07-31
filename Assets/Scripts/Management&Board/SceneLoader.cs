@@ -45,4 +45,14 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void LoadStoryStageScreen()
+    {
+        SceneManager.LoadScene("Story");
+    }
+
+    public void LoadStoryMapScreen()
+    {
+        SceneManager.LoadScene("Map");
+    }
 }

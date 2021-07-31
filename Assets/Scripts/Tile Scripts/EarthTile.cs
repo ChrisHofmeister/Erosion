@@ -48,9 +48,10 @@ public class EarthTile : MonoBehaviour
 
 
 
-    //Game Manager and Powers Manager game objects
+    //managers
     private GameManager gameManager;
     private PowersManager powersManager;
+    private ResourceManager resourceManager;
 
     //int for how many points are scored when tile is eroded
     [SerializeField] int points;
@@ -70,6 +71,7 @@ public class EarthTile : MonoBehaviour
         startingResistance = resistance;
         childNumber = GetComponentInChildren<Number>();
         powersManager = FindObjectOfType<PowersManager>();
+        resourceManager = FindObjectOfType<ResourceManager>();
 
         //setting column and row variables  = to current position. targ x&y will be used for movement
         //unless a move has been made, the tile copies created will have this info set farther in script
@@ -210,24 +212,21 @@ public class EarthTile : MonoBehaviour
         //the mouse must have traveled farther than the clickDeadZone to trigger
 
         if (Mathf.Abs(firstTouchPosition.x - finalTouchPosition.x) > clickDeadZone 
-            || Mathf.Abs(firstTouchPosition.y - finalTouchPosition.y) > clickDeadZone
-            && powersManager.powerModeOn == false)
+            || Mathf.Abs(firstTouchPosition.y - finalTouchPosition.y) > clickDeadZone)
         {
             CalculateAngle();
 
 
-            MoveTiles();
-            // ****************erosionPoint.multiPath = false;            
-            gameManager.Erosion();
+            if (powersManager.powerModeOn == false)
+            {
+                MoveTiles();
+                gameManager.Erosion();
+            }
         }
 
         if (powersManager.powerModeOn == true)
         {
-            if(powersManager.activePower == "rain")
-            {
-                powersManager.UseRainpower(ReturnLocation());
-            }
-            
+            PowerSelector();
         }
 
     }
@@ -379,13 +378,17 @@ public class EarthTile : MonoBehaviour
     }
 
     //when called, will erode the resistance by one
-    public void ErodeResistance()
+    public void ErodeResistance(int resistanceToReduce)
     {
 
-        if (resistance > 0)
+        if (resistance >= resistanceToReduce)
         {
-            resistance--;
+            resistance = resistance - resistanceToReduce;
             childNumber.PlayNumberSpin();
+        }
+        else
+        {
+            resistance = 0;
         }
     }
     
@@ -395,8 +398,12 @@ public class EarthTile : MonoBehaviour
         if (resistance <= 0)
         {
             if (!GetComponent<Bedrock>())
-            {      
+            {
                 //create a bedrock tile in its current location and destroy itself
+                if (gameManager.storyModeActive)
+                {
+                    CheckForAwardedResources();
+                }
                 GameObject newBedrock = Instantiate(board.earthTiles[0], tempPosition, Quaternion.identity);
                 newBedrock.GetComponent<EarthTile>().targetX = (int) tempPosition.x;
                 newBedrock.GetComponent<EarthTile>().targetY = (int)tempPosition.y;
@@ -416,5 +423,55 @@ public class EarthTile : MonoBehaviour
     {
 
         return new Vector2(column, row);
+    }
+
+    public void AddResistance(int resistanceToAdd)
+    {
+        resistance = resistance + resistanceToAdd;
+        childNumber.PlayNumberSpin();
+    }
+
+    private void PowerSelector()
+    {
+        if (powersManager.activePower == "rain")
+        {
+            powersManager.UseRainPower(ReturnLocation());
+        }
+        if(powersManager.activePower == "freeze")
+        {
+            powersManager.UseFreezePower(ReturnLocation());
+        }
+    }
+
+    public void StartDeluge()
+    {
+        if(resistance == 1)
+        {
+            ErodeResistance(1);
+        }
+        else
+        {
+            resistance = (int)Mathf.Floor(resistance / 2);
+            childNumber.PlayNumberSpin();
+        }
+    }
+
+    private void CheckForAwardedResources()
+    {
+        if (resourceManager != null)
+        {
+            if (startingResistance >= 2 && startingResistance <= 3)
+            {
+                resourceManager.AddResource("IN", "C", 1);
+            }
+            if (startingResistance == 5)
+            {
+                resourceManager.AddResource("IN", "U", 1);
+            }
+            if (startingResistance == 7)
+            {
+                resourceManager.AddResource("IN", "R", 1);
+            }
+        }
     }
 }

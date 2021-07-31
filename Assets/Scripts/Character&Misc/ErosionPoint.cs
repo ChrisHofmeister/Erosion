@@ -71,6 +71,10 @@ public class ErosionPoint : MonoBehaviour
     //gameManager script
     private GameManager gameManager;
 
+    //standard erosion amount
+    private int standardErosionAmount = 1;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -434,7 +438,7 @@ public class ErosionPoint : MonoBehaviour
     //calls the erode resistance method on the erosiontargets earth tile script
     public void ErodeTarget()
     {        
-        erosionTarget.GetComponent<EarthTile>().ErodeResistance();
+        erosionTarget.GetComponent<EarthTile>().ErodeResistance(standardErosionAmount);
         erosionTarget = null;
     }
 
@@ -760,5 +764,29 @@ public class ErosionPoint : MonoBehaviour
     public void SpriteOff()
     {
         spriteRenderer.enabled = false;
+    }
+
+    public Vector2 ReturnPrimaryErosionTargetLocation()
+    {
+        FindErosionDirection();
+
+        if (upEPFacing)
+        {
+            return new Vector2(column, row + 1);
+        }
+        else if (downEPFacing)
+        {
+            return new Vector2(column, row - 1);
+        }
+        else if (rightEPFacing)
+        {
+            return new Vector2(column + 1, row);
+        }
+        else if (leftEPFacing)
+        {
+            return new Vector2(column - 1, row);
+        }
+        else { return new Vector2(0f, 0f); }
+
     }
 }

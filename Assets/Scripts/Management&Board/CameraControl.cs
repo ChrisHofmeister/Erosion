@@ -15,11 +15,15 @@ public class CameraControl : MonoBehaviour
 
     public Camera m_OrthographicCamera;
 
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        gameManager = FindObjectOfType<GameManager>();
         board = FindObjectOfType<Board>();
+
         m_OrthographicCamera = FindObjectOfType<Camera>();
 
         

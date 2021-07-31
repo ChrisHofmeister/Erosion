@@ -167,6 +167,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterNeighbors: 0
+  rainBonus: 0
+  soilSprites:
+  - {fileID: 21300000, guid: f02c799527ad12642845b1655909ae30, type: 3}
+  - {fileID: 21300000, guid: ce2feea74913adf4a907cbb0d89ca61f, type: 3}
+  - {fileID: 21300000, guid: b81c06c77f3afc54c8a482086e078130, type: 3}
+  - {fileID: 21300000, guid: 3791c758e41289947b9641e6eddaaaee, type: 3}
 --- !u!114 &2290433074602290406
 MonoBehaviour:
   m_ObjectHideFlags: 0

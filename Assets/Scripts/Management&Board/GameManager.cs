@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
+
     //erosion point so Gm can handle timing and order of opperations
     private ErosionPoint erosionPoint;    
 
@@ -32,17 +34,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject alertPanel;
     [SerializeField] private GameObject endGamePanel;
     [SerializeField] private GameObject retryPanel;
-    [SerializeField] private GameObject powerPanel;
+    [SerializeField] private GameObject nonStoryPowerPanel;
+    [SerializeField] private GameObject nonStoryPromptPanel;
+    [SerializeField] private GameObject menuPanels;
+    
 
     //alert messaging game objects
     [SerializeField] private GameObject momentumLostText;
     [SerializeField] private GameObject powerLowText;
+    [SerializeField] private GameObject noPowerUsesLeftText;
+    [SerializeField] private GameObject notEnoughResources;
 
     //collider cover, due to strange bug, no longer serialized.  aquires ref at start using tag.  fixed bug, but left it as is
-    private GameObject colliderCover;
+    public GameObject colliderCover;
 
     //character stuff
-    [SerializeField] private CharacterEmote characterEmote;
+    [SerializeField] public CharacterEmote characterEmote;
     [SerializeField] private CharacterBody characterBody;
 
     //text to be updated
@@ -77,22 +84,37 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI retryFinalScoreValue;
 
 
-    //skip turn button
-    [SerializeField] private GameObject skipMoveButton;
+    //skip turn and Powers button
+    [SerializeField] public GameObject skipMoveButton;
+    [SerializeField] public GameObject powersButton;
+
 
     //water tile scripts for edge check
     private Water[] waterTileScripts;
 
+    //managers
     private RiverPathManager riverPathManager;
+    private StoryManager storyManager;
 
     //number game objects so i can trun their sprite renderers off
     private Number[] allNumbers;
+
+    //bool to indicate low power alert message has been shown
+    private bool lowPowerAlertHasBeenPlayed;
+
+    //bool to indicate if story or map mode is active
+    [SerializeField] public bool storyModeActive;
+
+    //bool for edge reached
+    private bool edgeReached;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        edgeReached = false;
+        storyManager = FindObjectOfType<StoryManager>();
+        menuPanels.SetActive(false);
         colliderCover = GameObject.FindGameObjectWithTag("collidercover");
         colliderCover.SetActive(false);
         erosionPointSet = false;
@@ -110,8 +132,15 @@ public class GameManager : MonoBehaviour
         retryPanel.SetActive(false);
         exitMissedHeader.SetActive(false);
         prettyCloseHeader.SetActive(false);
-        powerPanel.SetActive(false);
+        noPowerUsesLeftText.SetActive(false);
+        lowPowerAlertHasBeenPlayed = false;
+        menuPanels.SetActive(false);
 
+        if (!storyModeActive)
+        {
+            nonStoryPowerPanel.SetActive(false);
+            nonStoryPromptPanel.SetActive(false);
+        }      
         
     }
 
@@ -128,6 +157,8 @@ public class GameManager : MonoBehaviour
         //switch back at the end of lerpDelay()
         colliderCover.SetActive(true);
         skipMoveButton.SetActive(false);
+        powersButton.SetActive(false);
+        
         characterBody.PlayJoystickAnimation();
        
         //setting erosion point only once
@@ -171,23 +202,29 @@ public class GameManager : MonoBehaviour
             erosionPoint.FindErosionDirection();
             erosionPoint.MoveChecker();
             erosionPoint.TagWaterAsWaterKeep();
-        }        
-        erosionPoint.FindErosionTargets();
-        erosionPoint.ErodeTarget();
-        yield return new WaitForSeconds(.1f);
-        UpdateAllEarthTilePosition();
-        erosionPoint.SourceCheck();
-        
-        while (erosionPoint.willMove)
-        {
-            erosionPoint.FindErosionDirection();
-            erosionPoint.MoveChecker();
-            erosionPoint.TagWaterAsWaterKeep();
         }
-        //DisableWaterTiles();        
+        StartCoroutine(EdgeCheck());
+        yield return new WaitForSeconds(.1f);
+        if (!edgeReached)
+        {
 
-        
-        StartCoroutine(EndCheck());
+            erosionPoint.FindErosionTargets();
+            erosionPoint.ErodeTarget();
+            yield return new WaitForSeconds(.1f);
+            UpdateAllEarthTilePosition();
+            erosionPoint.SourceCheck();
+
+            while (erosionPoint.willMove)
+            {
+                erosionPoint.FindErosionDirection();
+                erosionPoint.MoveChecker();
+                erosionPoint.TagWaterAsWaterKeep();
+            }
+            //DisableWaterTiles();        
+
+
+            EndCheck();
+        }
         
     }
 
@@ -197,7 +234,7 @@ public class GameManager : MonoBehaviour
         //switch back at the end of lerpDelay()
         colliderCover.SetActive(true);
         skipMoveButton.SetActive(false);
-
+        powersButton.SetActive(false);
         //setting erosion point only once
         if (!erosionPointSet)
         {
@@ -274,14 +311,9 @@ public class GameManager : MonoBehaviour
             waterKeepTile.tag = "water";
         }
     }
-    //needed to wait for very small amount of time for the bedrock script to complete setup before checking for edge
-    IEnumerator EndCheck()
+
+    IEnumerator EdgeCheck()
     {
-
-        UpdateTimer();        
-
-        
-
         riverPathManager.GatherAllBedrockTiles();
 
         yield return new WaitForSeconds(.1f);
@@ -289,19 +321,33 @@ public class GameManager : MonoBehaviour
 
         waterTileScripts = FindObjectsOfType<Water>();
 
-        foreach(Water waterTile in waterTileScripts)
+        foreach (Water waterTile in waterTileScripts)
         {
             if (waterTile.EdgeCheck())
             {
                 reachedEdgeBeforeTimerZero = true;
+                edgeReached = true;
                 gameEndingTilePos = waterTile.transform.position;
                 StartCoroutine(EndGame());
-            }            
+               
+            }
         }
+    }
+    //needed to wait for very small amount of time for the bedrock script to complete setup before checking for edge
+    private void EndCheck()
+    {
 
-        if (turnTimer == 5 && reachedEdgeBeforeTimerZero != true)
+        UpdateTimer();
+
+
+
+        StartCoroutine(EdgeCheck());
+
+        if (turnTimer == 5 && reachedEdgeBeforeTimerZero != true && lowPowerAlertHasBeenPlayed == false)
         {
+
             StartCoroutine(PowerLowAlert());
+
         }
 
         if(turnTimer == 0 && reachedEdgeBeforeTimerZero != true)
@@ -313,6 +359,35 @@ public class GameManager : MonoBehaviour
         {
             colliderCover.SetActive(false);
             skipMoveButton.SetActive(true);
+            powersButton.SetActive(true);
+        }
+
+    }
+
+    IEnumerator PowerUseEndCheck()
+    {
+
+        riverPathManager.GatherAllBedrockTiles();
+
+        yield return new WaitForSeconds(.1f);
+
+
+        waterTileScripts = FindObjectsOfType<Water>();
+
+        foreach (Water waterTile in waterTileScripts)
+        {
+            if (waterTile.EdgeCheck())
+            {
+                reachedEdgeBeforeTimerZero = true;
+                gameEndingTilePos = waterTile.transform.position;
+                StartCoroutine(EndGame());
+            }
+        }
+
+        
+        if (turnTimer == 0 && reachedEdgeBeforeTimerZero != true)
+        {
+            StartCoroutine(EndGame());
         }
 
     }
@@ -350,10 +425,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PowerLowAlert()
     {
+        lowPowerAlertHasBeenPlayed = true;
         powerLowText.SetActive(true);
         alertPanel.SetActive(true);
         colliderCover.SetActive(true);
         skipMoveButton.SetActive(false);
+        powersButton.SetActive(false);
         characterEmote.EmoteSurprise();
 
         yield return new WaitForSeconds(1f);
@@ -366,6 +443,7 @@ public class GameManager : MonoBehaviour
         alertPanel.SetActive(false);
         powerLowText.SetActive(false);
         skipMoveButton.SetActive(true);
+        powersButton.SetActive(true);
         characterEmote.EmoteIdle();
     }
 
@@ -387,6 +465,7 @@ public class GameManager : MonoBehaviour
         alertPanel.SetActive(true);
         colliderCover.SetActive(true);
         skipMoveButton.SetActive(false);
+        powersButton.SetActive(false);
         characterEmote.EmoteSquint();
 
         yield return new WaitForSeconds(1.25f);
@@ -399,6 +478,43 @@ public class GameManager : MonoBehaviour
         alertPanel.SetActive(false);
         momentumLostText.SetActive(false);
         skipMoveButton.SetActive(true);
+        powersButton.SetActive(true);
+        characterEmote.EmoteIdle();
+    }
+
+    //alert 1 will play no power uses left, 2 will play battery low
+    public void StartPowersAlert(int alertNumber)
+    {
+        if (alertNumber == 1)
+        {
+            StartCoroutine(NoPowerUsesLeftAlert());
+        }
+        if(alertNumber == 2)
+        {
+            StartCoroutine(PowerLowAlert());
+        }
+    }
+
+    IEnumerator NoPowerUsesLeftAlert()
+    {
+        noPowerUsesLeftText.SetActive(true);
+        alertPanel.SetActive(true);
+        colliderCover.SetActive(true);
+        powersButton.SetActive(false);
+        skipMoveButton.SetActive(false);
+        characterEmote.EmoteSurprise();
+
+        yield return new WaitForSeconds(1f);
+
+        characterEmote.EmoteConfused();
+
+        yield return new WaitForSeconds(1.5f);
+
+        colliderCover.SetActive(false);
+        alertPanel.SetActive(false);
+        noPowerUsesLeftText.SetActive(false);
+        skipMoveButton.SetActive(true);
+        powersButton.SetActive(true);
         characterEmote.EmoteIdle();
     }
 
@@ -406,6 +522,7 @@ public class GameManager : MonoBehaviour
     {
         TurnOffNumbers();
         skipMoveButton.SetActive(false);
+        powersButton.SetActive(false);
         colliderCover.SetActive(true);
         CalculateSoilBonus();
         CalcFinalScores();
@@ -418,6 +535,10 @@ public class GameManager : MonoBehaviour
         {
             niceWorkHeader.SetActive(true);
             characterEmote.EmoteHappy();
+            if (storyModeActive)
+            {
+                CheckForFirstCompletion();
+            }
         }
         else if (egEndPointBonus == board.boardSize * 100)
         {
@@ -443,6 +564,50 @@ public class GameManager : MonoBehaviour
         InitiateRetryPanel();
 
     }
+
+    IEnumerator StoryEndGame()
+    {
+        TurnOffNumbers();
+        skipMoveButton.SetActive(false);
+        powersButton.SetActive(false);
+        colliderCover.SetActive(true);
+        CalculateSoilBonus();
+        CalcFinalScores();
+        if (!reachedEdgeBeforeTimerZero)
+        {
+            batteryDeadHeader.SetActive(true);
+            characterEmote.EmoteAngry();
+        }
+        else if (egEndPointBonus == board.boardSize * 200)
+        {
+            niceWorkHeader.SetActive(true);
+            characterEmote.EmoteHappy();
+        }
+        else if (egEndPointBonus == board.boardSize * 100)
+        {
+            prettyCloseHeader.SetActive(true);
+            characterEmote.EmoteHappy();
+        }
+        else
+        {
+            exitMissedHeader.SetActive(true);
+            characterEmote.EmoteConfused();
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        endGamePanel.SetActive(true);
+
+        yield return new WaitForSeconds(4f);
+
+        characterEmote.EmoteIdle();
+        endGamePanel.SetActive(false);
+
+        yield return new WaitForSeconds(.5f);
+        InitiateRetryPanel();
+
+    }
+
 
     private void CalculateSoilBonus()
     {
@@ -507,6 +672,32 @@ public class GameManager : MonoBehaviour
         characterEmote.EmoteQuestion();
         retryFinalScoreValue.text = egFinalScore.ToString();
         retryPanel.SetActive(true);
+
+        if (storyModeActive)
+        {
+            storyManager.SwitchMapStageMode();
+        }
+    }
+
+    private void CheckForFirstCompletion()
+    {
+        if (!storyManager.stageProgressArray[storyManager.stageIndex])
+        {
+            storyManager.stageProgressArray[storyManager.stageIndex] = true;
+            storyManager.stageProgress++;
+            if(storyManager.stageProgress == 5)
+            {
+                storyManager.mapProgress = 1;
+            }
+            if (storyManager.stageProgress == 10)
+            {
+                storyManager.mapProgress = 2;
+            }
+            if (storyManager.stageProgress == 15)
+            {
+                storyManager.mapProgress = 3;
+            }
+        }
     }
 
     private void TurnOffNumbers()
@@ -516,5 +707,21 @@ public class GameManager : MonoBehaviour
         {
             number.GetComponent<SpriteRenderer>().sprite = null;
         }
+    }
+
+    public void ReduceTurnTimer(int reduction)
+    {
+        turnTimer = turnTimer - reduction;
+        turnTimerText.text = turnTimer.ToString();
+
+        if (turnTimer <= 5 && lowPowerAlertHasBeenPlayed == false)
+        {
+
+            StartCoroutine(PowerLowAlert());
+
+        }
+
+        StartCoroutine(PowerUseEndCheck());
+
     }
 }

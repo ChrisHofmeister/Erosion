@@ -130,6 +130,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1227482657516554540, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 1227482657516554540, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClosePowerPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1227482657516554540, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1501887542118718405, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -147,6 +159,42 @@ PrefabInstance:
       value: ActivateRainPower
       objectReference: {fileID: 0}
     - target: {fileID: 1758280962991952107, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806859046899501126, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 1806859046899501126, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateStormPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1806859046899501126, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817898815508051028, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 1817898815508051028, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DontUseSelectedPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1817898815508051028, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936707421449585953, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 1936707421449585953, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateDelugePower
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936707421449585953, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PowersManager, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -171,6 +219,30 @@ PrefabInstance:
       value: ClosePowerPanel
       objectReference: {fileID: 0}
     - target: {fileID: 2415711221661735900, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3670626625099293103, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 3670626625099293103, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateDelugePower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3670626625099293103, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929085749448604745, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 3929085749448604745, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateFreezePower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3929085749448604745, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PowersManager, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -270,10 +342,58 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1308645727}
+    - target: {fileID: 5250768599087496193, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 5250768599087496193, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateStormPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5250768599087496193, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5974229337320573681, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1308645727}
+    - target: {fileID: 6304555084456731118, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 6304555084456731118, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseSelectedPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304555084456731118, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243376759601075741, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 7243376759601075741, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DontUseSelectedPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243376759601075741, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262115021470320125, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 7262115021470320125, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseSelectedPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7262115021470320125, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7493447759545267714, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -281,6 +401,30 @@ PrefabInstance:
     - target: {fileID: 7849007505515914269, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034435555623439979, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 8034435555623439979, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateFreezePower
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034435555623439979, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219454218684327624, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1234818126}
+    - target: {fileID: 9219454218684327624, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateRainPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219454218684327624, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowersManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
@@ -448,17 +592,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3916704114827911848, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
   m_PrefabInstance: {fileID: 163450011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &163450034 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6158102307225473737, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
-  m_PrefabInstance: {fileID: 163450011}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &163450035 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5425358667491594909, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
@@ -468,6 +601,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3a5b78215ad0b24a850c942f2737dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &163450036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1392421726100253601, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &163450038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1457262067196247062, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &163450045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1533324625231421839, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &163450046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7081432318219097565, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &163450047 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2777970307160455652, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &354127591 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6321586273634209245, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &449599054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2539812778655374276, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &724867236
@@ -524,11 +704,15 @@ PrefabInstance:
     - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
       propertyPath: powerPanel
       value: 
-      objectReference: {fileID: 163450033}
+      objectReference: {fileID: 163450047}
     - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
       propertyPath: powerButton
       value: 
       objectReference: {fileID: 163450032}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: promptPanel
+      value: 
+      objectReference: {fileID: 163450046}
     - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
       propertyPath: colliderCover
       value: 
@@ -538,9 +722,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 163450023}
     - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: rainCostDisplayText
+      value: 
+      objectReference: {fileID: 1988007210}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
       propertyPath: rainUsesDisplayText
       value: 
-      objectReference: {fileID: 163450034}
+      objectReference: {fileID: 1927519182}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: stormCostDisplayText
+      value: 
+      objectReference: {fileID: 1507349948}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: stormUsesDisplayText
+      value: 
+      objectReference: {fileID: 1765461269}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: delugeCostDisplayText
+      value: 
+      objectReference: {fileID: 1624731220}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: delugeUsesDisplayText
+      value: 
+      objectReference: {fileID: 1300219602}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: freezeCostDisplayText
+      value: 
+      objectReference: {fileID: 449599054}
+    - target: {fileID: 5735406584782668109, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
+      propertyPath: freezeUsesDisplayText
+      value: 
+      objectReference: {fileID: 354127591}
     - target: {fileID: 5735406584782668110, guid: 736f2611dda50f742b0985d0435b6035, type: 3}
       propertyPath: m_Name
       value: PowersManager
@@ -642,6 +854,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f26f272fe0e2004ab5fb0bafffe063e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1300219602 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4831260993436087439, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1308645726
@@ -903,6 +1126,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 163450012}
     - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: menuPanels
+      value: 
+      objectReference: {fileID: 163450045}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
       propertyPath: powerPanel
       value: 
       objectReference: {fileID: 163450033}
@@ -915,6 +1142,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: promptPanel
+      value: 
+      objectReference: {fileID: 163450038}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
       propertyPath: endGamePanel
       value: 
       objectReference: {fileID: 163450020}
@@ -922,6 +1153,10 @@ PrefabInstance:
       propertyPath: powerLowText
       value: 
       objectReference: {fileID: 163450026}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: powersButton
+      value: 
+      objectReference: {fileID: 163450032}
     - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
       propertyPath: characterBody
       value: 
@@ -979,6 +1214,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: nonStoryPowerPanel
+      value: 
+      objectReference: {fileID: 163450047}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: noPowerUsesLeftText
+      value: 
+      objectReference: {fileID: 163450036}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
+      propertyPath: nonStoryPromptPanel
+      value: 
+      objectReference: {fileID: 163450046}
+    - target: {fileID: 5558565794871250672, guid: 21762bd72e98f4a428546af7ed37f270, type: 3}
       propertyPath: endgameEndPointValue
       value: 
       objectReference: {fileID: 163450013}
@@ -1013,6 +1260,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56e27879faf72134bb7fb75278fac339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1507349948 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8384920486433279362, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1624731220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7063362740846521350, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1765461269 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8554068219370282409, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1875285920
@@ -1088,6 +1368,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f94587ac1417dc488b9084548c5ef0a, type: 3}
+--- !u!114 &1927519182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4052182111843326414, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1988007210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8543238813663836123, guid: 0e8a5e5fe37c981499c449fb82758685, type: 3}
+  m_PrefabInstance: {fileID: 163450011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7948705735351862138
 PrefabInstance:
   m_ObjectHideFlags: 0
