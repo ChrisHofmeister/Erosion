@@ -55,4 +55,9 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("Map");
     }
+
+    public void LoadTesterScreen()
+    {
+        SceneManager.LoadScene("Tester Screen");
+    }
 }

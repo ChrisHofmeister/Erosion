@@ -28,15 +28,10 @@ public class CameraControl : MonoBehaviour
 
         
 
-        EstablishValues();
-
-        Vector3 cameraPos = new Vector3(cameraX, cameraY, cameraZ);
-
-        transform.position = cameraPos;
-
         
 
-        m_OrthographicCamera.orthographicSize = cameraSize;
+
+
 
 
 
@@ -48,7 +43,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        EstablishValues();
     }
 
 
@@ -91,6 +86,11 @@ public class CameraControl : MonoBehaviour
             cameraSize = 9f;
         }
 
+        Vector3 cameraPos = new Vector3(cameraX, cameraY, cameraZ);
+
+        transform.position = cameraPos;
+        
+        m_OrthographicCamera.orthographicSize = cameraSize;
 
     }
 

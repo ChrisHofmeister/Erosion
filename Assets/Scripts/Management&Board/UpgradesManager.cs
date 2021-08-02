@@ -78,9 +78,15 @@ public class UpgradesManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI freezeCostText;
     [SerializeField] GameObject freezeCostGO;
 
- 
-    
-    
+
+    //bools to indicate when upgrade at max level, so can be turned off
+    private bool emitterMaxLevel;
+    private bool batteryMaxLevel;
+    private bool rainMaxLevel;
+    private bool delugeMaxLevel;
+    private bool stormMaxLevel;
+    private bool freezeMaxLevel;
+
 
     //activeUpgrade string
     private string activeUpgrade;
@@ -111,6 +117,16 @@ public class UpgradesManager : MonoBehaviour
     private string b2EmitterRarity2 = "R";
     private int b2EmitterCost2 = 2;
 
+    private string r3EmitterRarity1 = "U";
+    private int rEmitterCost1 = 15;
+    private string r3EmitterRarity2 = "R";
+    private int r3EmitterCost2 = 5;
+
+    private string b3EmitterRarity1 = "U";
+    private int b3EmitterCost1 = 15;
+    private string b3EmitterRarity2 = "R";
+    private int b3EmitterCost2 = 5;
+
     //battery Upgrade Costs
     private string batteryCurrentRarity1;
     private int batteryCurrentCost1;
@@ -127,15 +143,46 @@ public class UpgradesManager : MonoBehaviour
     private string b1BatteryRarity2 = "U";
     private int b1BatteryCost2 = 1;
 
-    private string r2BatteryRarity1 = "U";
-    private int r2BatteryCost1 = 10;
-    private string r2BatteryRarity2 = "R";
-    private int r2BatteryCost2 = 1;
+    private string r2BatteryRarity1 = "C";
+    private int r2BatteryCost1 = 5;
+    private string r2BatteryRarity2 = "U";
+    private int r2BatteryCost2 = 2;
 
-    private string b2BatteryRarity1 = "C";
-    private int b2BatteryCost1 = 25;
-    private string b2BatteryRarity2 = "R";
+    private string b2BatteryRarity1 = "U";
+    private int b2BatteryCost1 = 5;
+    private string b2BatteryRarity2 = "C";
     private int b2BatteryCost2 = 2;
+
+    private string r3BatteryRarity1 = "U";
+    private int r3BatteryCost1 = 10;
+    private string r3BatteryRarity2 = "R";
+    private int r3BatteryCost2 = 1;
+
+    private string b3BatteryRarity1 = "C";
+    private int b3BatteryCost1 = 25;
+    private string b3BatteryRarity2 = "U";
+    private int b3BatteryCost2 = 2;
+
+    private string r4BatteryRarity1 = "U";
+    private int r4BatteryCost1 = 10;
+    private string r4BatteryRarity2 = "R";
+    private int r4BatteryCost2 = 1;
+
+    private string b4BatteryRarity1 = "C";
+    private int b4BatteryCost1 = 25;
+    private string b4BatteryRarity2 = "U";
+    private int b4BatteryCost2 = 2;
+
+    private string r5BatteryRarity1 = "U";
+    private int r5BatteryCost1 = 10;
+    private string r5BatteryRarity2 = "R";
+    private int r5BatteryCost2 = 1;
+
+    private string b5BatteryRarity1 = "C";
+    private int b5BatteryCost1 = 25;
+    private string b5BatteryRarity2 = "R";
+    private int b5BatteryCost2 = 2;
+
 
     //rain upgrade costs
     private string rainCurrentRarity1;
@@ -150,8 +197,8 @@ public class UpgradesManager : MonoBehaviour
 
     private string b1RainRarity1 = "C";
     private int b1RainCost1 = 10;
-    private string b1RainRarity2 = "U";
-    private int b1RainCost2 = 2;
+    private string b1RainRarity2 = "R";
+    private int b1RainCost2 = 1;
 
     private string r2RainRarity1 = "U";
     private int r2RainCost1 = 10;
@@ -176,8 +223,8 @@ public class UpgradesManager : MonoBehaviour
 
     private string b1DelugeRarity1 = "C";
     private int b1DelugeCost1 = 10;
-    private string b1DelugeRarity2 = "U";
-    private int b1DelugeCost2 = 2;
+    private string b1DelugeRarity2 = "R";
+    private int b1DelugeCost2 = 1;
 
     private string r2DelugeRarity1 = "U";
     private int r2DelugeCost1 = 10;
@@ -202,8 +249,8 @@ public class UpgradesManager : MonoBehaviour
 
     private string b1StormRarity1 = "C";
     private int b1StormCost1 = 10;
-    private string b1StormRarity2 = "U";
-    private int b1StormCost2 = 2;
+    private string b1StormRarity2 = "R";
+    private int b1StormCost2 = 1;
 
     private string r2StormRarity1 = "U";
     private int r2StormCost1 = 10;
@@ -229,8 +276,8 @@ public class UpgradesManager : MonoBehaviour
 
     private string b1FreezeRarity1 = "C";
     private int b1FreezeCost1 = 10;
-    private string b1FreezeRarity2 = "U";
-    private int b1FreezeCost2 = 2;
+    private string b1FreezeRarity2 = "R";
+    private int b1FreezeCost2 = 1;
 
     private string r2FreezeRarity1 = "U";
     private int r2FreezeCost1 = 10;
@@ -262,6 +309,11 @@ public class UpgradesManager : MonoBehaviour
         noUpgradeButton.SetActive(false);
         notEnoughResroucesAlertText.SetActive(false);
 
+        if (storyManager.testingModeActive)
+        {
+            UpdateTestingUpgradeCosts(storyManager.testingUpgradeTypesSM, storyManager.testingUpgradeCostsSM);
+        }
+
     }
 
     // Update is called once per frame
@@ -280,7 +332,10 @@ public class UpgradesManager : MonoBehaviour
 
         if(storyManager.availableUpgradesArraySM[0] >= 0)
         {
-            TurnUpgradeOn("emitter");
+            if (!emitterMaxLevel)
+            {
+                TurnUpgradeOn("emitter");
+            }
 
             if(storyManager.availableUpgradesArraySM[1] == 0)
             {
@@ -335,7 +390,10 @@ public class UpgradesManager : MonoBehaviour
 
         if (storyManager.availableUpgradesArraySM[2] >= 0)
         {
-            TurnUpgradeOn("battery");
+            if (!batteryMaxLevel)
+            {
+                TurnUpgradeOn("battery");
+            }
 
             if (storyManager.availableUpgradesArraySM[3] == 0)
             {
@@ -389,7 +447,10 @@ public class UpgradesManager : MonoBehaviour
 
         if (storyManager.availableUpgradesArraySM[4] >= 0)
         {
-            TurnUpgradeOn("rain");
+            if (!rainMaxLevel)
+            {
+                TurnUpgradeOn("rain");
+            }
 
             if (storyManager.availableUpgradesArraySM[5] == 0)
             {
@@ -443,7 +504,10 @@ public class UpgradesManager : MonoBehaviour
 
         if (storyManager.availableUpgradesArraySM[6] >= 0)
         {
-            TurnUpgradeOn("deluge");
+            if (!delugeMaxLevel)
+            {
+                TurnUpgradeOn("deluge");
+            }
 
             if (storyManager.availableUpgradesArraySM[7] == 0)
             {
@@ -497,7 +561,10 @@ public class UpgradesManager : MonoBehaviour
 
         if (storyManager.availableUpgradesArraySM[8] >= 0)
         {
-            TurnUpgradeOn("storm");
+            if (!stormMaxLevel)
+            {
+                TurnUpgradeOn("storm");
+            }
 
             if (storyManager.availableUpgradesArraySM[9] == 0)
             {
@@ -551,7 +618,10 @@ public class UpgradesManager : MonoBehaviour
 
         if (storyManager.availableUpgradesArraySM[10] >= 0)
         {
-            TurnUpgradeOn("freeze");
+            if (!freezeMaxLevel)
+            {
+                TurnUpgradeOn("freeze");
+            }
 
             if (storyManager.availableUpgradesArraySM[11] == 0)
             {
@@ -1286,12 +1356,30 @@ public class UpgradesManager : MonoBehaviour
         }
         if(action == "on")
         {
-            emitterButtonGO.SetActive(true);
-            batteryButtonGO.SetActive(true);
-            rainButtonGO.SetActive(true);
-            delugeButtonGO.SetActive(true);
-            stormButtonGO.SetActive(true);
-            freezeButtonGO.SetActive(true);
+            if (!emitterMaxLevel)
+            {
+                emitterButtonGO.SetActive(true);
+            }
+            if (!batteryMaxLevel)
+            {
+                batteryButtonGO.SetActive(true);
+            }
+            if (!rainMaxLevel)
+            {
+                rainButtonGO.SetActive(true);
+            }
+            if (!delugeMaxLevel)
+            {
+                delugeButtonGO.SetActive(true);
+            }
+            if (!stormMaxLevel)
+            {
+                stormButtonGO.SetActive(true);
+            }
+            if (!freezeMaxLevel)
+            {
+                freezeButtonGO.SetActive(true);
+            }
             backButton.SetActive(true);
             powersButton.SetActive(true);
             resourcesButton.SetActive(true);
@@ -1338,6 +1426,22 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[0]++;
                 storyManager.availableUpgradesArraySM[1] = 0;
+
+                if(storyManager.availableUpgradesArraySM[0] == 1)
+                {
+                    emitterTextGO.GetComponent<TextMeshProUGUI>().text = "Emitter3";
+                }
+                if (storyManager.availableUpgradesArraySM[0] == 2)
+                {
+                    emitterTextGO.GetComponent<TextMeshProUGUI>().text = "Emitter4";
+                }
+                if (storyManager.availableUpgradesArraySM[0] >= 3)
+                {
+                    emitterMaxLevel = true;
+                    TurnUpgradeOff("emitter");
+                    emitterTextGO.GetComponent<TextMeshProUGUI>().text = "MaxEmitter";
+                    emitterTextGO.SetActive(true);                    
+                }
             }
         }
 
@@ -1357,6 +1461,30 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[2]++;
                 storyManager.availableUpgradesArraySM[3] = 0;
+
+                if(storyManager.availableUpgradesArraySM[2] == 1)
+                {
+                    batteryTextGO.GetComponent<TextMeshProUGUI>().text = "Battery3";
+                }
+                if (storyManager.availableUpgradesArraySM[2] == 2)
+                {
+                    batteryTextGO.GetComponent<TextMeshProUGUI>().text = "Battery4";
+                }
+                if (storyManager.availableUpgradesArraySM[2] == 3)
+                {
+                    batteryTextGO.GetComponent<TextMeshProUGUI>().text = "Battery5";
+                }
+                if (storyManager.availableUpgradesArraySM[2] == 4)
+                {
+                    batteryTextGO.GetComponent<TextMeshProUGUI>().text = "Battery6";
+                }
+                if(storyManager.availableUpgradesArraySM[2] >= 5)
+                {
+                    batteryMaxLevel = true;
+                    TurnUpgradeOff("battery");
+                    batteryTextGO.GetComponent<TextMeshProUGUI>().text = "MaxBattery";
+                    batteryTextGO.SetActive(true);
+                }
             }
         }
 
@@ -1376,6 +1504,14 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[4]++;
                 storyManager.availableUpgradesArraySM[5] = 0;
+
+                if (storyManager.availableUpgradesArraySM[4] >= 1)
+                {
+                    rainMaxLevel = true;
+                    TurnUpgradeOff("rain");
+                    rainTextGO.GetComponent<TextMeshProUGUI>().text = "MaxRain";
+                    rainTextGO.SetActive(true);
+                }
             }
         }
 
@@ -1395,6 +1531,14 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[6]++;
                 storyManager.availableUpgradesArraySM[7] = 0;
+
+                if (storyManager.availableUpgradesArraySM[6] >= 1)
+                {
+                    delugeMaxLevel = true;
+                    TurnUpgradeOff("deluge");
+                    delugeTextGO.GetComponent<TextMeshProUGUI>().text = "MaxDeluge";
+                    delugeTextGO.SetActive(true);
+                }
             }
         }
 
@@ -1414,6 +1558,14 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[8]++;
                 storyManager.availableUpgradesArraySM[9] = 0;
+
+                if (storyManager.availableUpgradesArraySM[8] >= 1)
+                {
+                    stormMaxLevel = true;
+                    TurnUpgradeOff("storm");
+                    stormTextGO.GetComponent<TextMeshProUGUI>().text = "MaxStorm";
+                    stormTextGO.SetActive(true);
+                }
             }
         }
 
@@ -1433,11 +1585,145 @@ public class UpgradesManager : MonoBehaviour
 
                 storyManager.availableUpgradesArraySM[10]++;
                 storyManager.availableUpgradesArraySM[11] = 0;
+
+                if (storyManager.availableUpgradesArraySM[10] >= 1)
+                {
+                    freezeMaxLevel = true;
+                    TurnUpgradeOff("freeze");
+                    freezeTextGO.GetComponent<TextMeshProUGUI>().text = "MaxFreeze";
+                    freezeTextGO.SetActive(true);
+                }
             }
         }
 
         CloseUpgradePromptPanel();
     }
 
+    private void UpdateTestingUpgradeCosts(string[] rarity, int[] cost)
+    {
+        //Emitter UpgradeCosts
+        r1EmitterRarity1 = rarity[0];
+        r1EmitterCost1 = cost[0];
+        r1EmitterRarity2 = rarity[1];
+        r1EmitterCost2 = cost[1];
+
+        b1EmitterRarity1 = rarity[2];
+        b1EmitterCost1 = cost[2];
+        b1EmitterRarity2 = rarity[3];
+        b1EmitterCost2 = cost[3];
+
+        r2EmitterRarity1 = rarity[4];
+        r2EmitterCost1 = cost[4];
+        r2EmitterRarity2 = rarity[5];
+        r2EmitterCost2 = cost[5];
+
+        b2EmitterRarity1 = rarity[6];
+        b2EmitterCost1 = cost[6];
+        b2EmitterRarity2 = rarity[7];
+        b2EmitterCost2 = cost[7];
+
+        r3EmitterRarity1 = rarity[8];
+        rEmitterCost1 = cost[8];
+        r3EmitterRarity2 = rarity[9];
+        r3EmitterCost2 = cost[9];
+
+        b3EmitterRarity1 = rarity[10];
+        b3EmitterCost1 = cost[10];
+        b3EmitterRarity2 = rarity[11];
+        b3EmitterCost2 = cost[11];
+
+        //battery Upgrade Costs
+        r1BatteryRarity1 = rarity[12];
+        r1BatteryCost1 = cost[12];
+        r1BatteryRarity2 = rarity[13];
+        r1BatteryCost2 = cost[13];
+
+        b1BatteryRarity1 = rarity[14];
+        b1BatteryCost1 = cost[14];
+        b1BatteryRarity2 = rarity[15];
+        b1BatteryCost2 = cost[15];
+
+        r2BatteryRarity1 = rarity[16];
+        r2BatteryCost1 = cost[16];
+        r2BatteryRarity2 = rarity[17];
+        r2BatteryCost2 = cost[17];
+
+        b2BatteryRarity1 = rarity[18];
+        b2BatteryCost1 = cost[18];
+        b2BatteryRarity2 = rarity[19];
+        b2BatteryCost2 = cost[19];
+
+        r3BatteryRarity1 = rarity[20];
+        r3BatteryCost1 = cost[20];
+        r3BatteryRarity2 = rarity[21];
+        r3BatteryCost2 = cost[21];
+
+        b3BatteryRarity1 = rarity[22];
+        b3BatteryCost1 = cost[22];
+        b3BatteryRarity2 = rarity[23];
+        b3BatteryCost2 = cost[23];
+
+        r4BatteryRarity1 = rarity[24];
+        r4BatteryCost1 = cost[24];
+        r4BatteryRarity2 = rarity[25];
+        r4BatteryCost2 = cost[25];
+
+        b4BatteryRarity1 = rarity[26];
+        b4BatteryCost1 = cost[26];
+        b4BatteryRarity2 = rarity[27];
+        b4BatteryCost2 = cost[27];
+
+        r5BatteryRarity1 = rarity[28];
+        r5BatteryCost1 = cost[28];
+        r5BatteryRarity2 = rarity[29];
+        r5BatteryCost2 = cost[29];
+
+        b5BatteryRarity1 = rarity[30];
+        b5BatteryCost1 = cost[30];
+        b5BatteryRarity2 = rarity[31];
+        b5BatteryCost2 = cost[31];
+
+        //powers upgrade costs
+
+        r1RainRarity1 = rarity[32];
+        r1RainCost1 = cost[32];
+        r1RainRarity2 = rarity[33];
+        r1RainCost2 = cost[33];
+
+        b1RainRarity1 = rarity[34];
+        b1RainCost1 = cost[34];
+        b1RainRarity2 = rarity[35];
+        b1RainCost2 = cost[35];
+
+        r1DelugeRarity1 = rarity[36];
+        r1DelugeCost1 = cost[36];
+        r1DelugeRarity2 = rarity[37];
+        r1DelugeCost2 = cost[37];
+
+        b1DelugeRarity1 = rarity[38];
+        b1DelugeCost1 = cost[38];
+        b1DelugeRarity2 = rarity[39];
+        b1DelugeCost2 = cost[39];
+
+        r1StormRarity1 = rarity[40];
+        r1StormCost1 = cost[40];
+        r1StormRarity2 = rarity[41];
+        r1StormCost2 = cost[41];
+
+        b1StormRarity1 = rarity[42];
+        b1StormCost1 = cost[42];
+        b1StormRarity2 = rarity[43];
+        b1StormCost2 = cost[43];
+
+        r1FreezeRarity1 = rarity[44];
+        r1FreezeCost1 = cost[44];
+        r1FreezeRarity2 = rarity[45];
+        r1FreezeCost2 = cost[45];
+
+        b1FreezeRarity1 = rarity[46];
+        b1FreezeCost1 = cost[46];
+        b1FreezeRarity2 = rarity[47];
+        b1FreezeCost2 = cost[47];
+    }
     
 }

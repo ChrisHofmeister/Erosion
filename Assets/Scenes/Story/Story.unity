@@ -548,13 +548,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageProgress: 0
+  stageProgressArray: 
   mapProgress: 1
+  stageIndex: 0
   stageButtonsArray: []
   availableEarthTiles: []
   stageTiles: []
   stageRiverStartPos: {x: 0, y: 0}
   stageRiverEndPos: {x: 0, y: 0}
   boardSizeSM: 0
+  batterySizeSM: 0
   mapModeActive: 1
   stageModeActive: 0
   availableUpgradesArraySM: 
@@ -3283,7 +3286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1537738085181712286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5775,7 +5778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &2884497482031076515
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11273,6 +11276,10 @@ MonoBehaviour:
   stormUsesDisplayText: {fileID: 1758910812620108349}
   stormUsesGO: {fileID: 1979147176633772219}
   activePower: 
+  rainActive: 0
+  delugeActive: 0
+  stormActive: 0
+  freezeActive: 0
 --- !u!1 &5735406585503341034
 GameObject:
   m_ObjectHideFlags: 0
@@ -14660,7 +14667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Battery
+  m_text: Battery2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17350,7 +17357,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Emitter
+  m_text: Emitter2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -35,6 +35,11 @@ public class StoryManager : MonoBehaviour
     public bool mapModeActive = false;
     public bool stageModeActive = true;
 
+    //vars for testing mode
+    public bool testingModeActive;
+    public string[] testingUpgradeTypesSM;
+    public int[] testingUpgradeCostsSM;
+
     //arrays of data from managers to be updated when they are recreated
 
     // even are  the upgrades level and odd is the research or build mode indicators
@@ -50,6 +55,8 @@ public class StoryManager : MonoBehaviour
         availableUpgradesArraySM = new int[12];
         availableResourcesArraySM = new int[6];
         stageProgressArray = new bool[20];
+        testingUpgradeTypesSM = new string[48];
+        testingUpgradeCostsSM = new int[48];
         ResetAllUpgrades();
         stageProgress = 0;
         mapProgress = 0;
@@ -62,6 +69,9 @@ public class StoryManager : MonoBehaviour
 
         availableUpgradesArraySM[0] = 0;
         availableUpgradesArraySM[2] = 0;
+
+        mapModeActive = true;
+        stageModeActive = false;
 
     }
 
@@ -153,4 +163,6 @@ public class StoryManager : MonoBehaviour
             }
         }
     }
+
+
 }

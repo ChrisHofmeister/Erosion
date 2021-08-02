@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Game Select Screen.unity
     guid: 94537fa78eff2c54b8cb76ffdd5dcbd1
   - enabled: 1
+    path: Assets/Scenes/Menus/Tester Screen.unity
+    guid: 326d99ca509f8f5418ed3e491274c37c
+  - enabled: 1
     path: Assets/Scenes/RandomLevels/Three.unity
     guid: 38067fdbfaedfe74c8e105c3f7c3fdd0
   - enabled: 1

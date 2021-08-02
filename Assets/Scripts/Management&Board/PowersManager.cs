@@ -74,10 +74,12 @@ public class PowersManager : MonoBehaviour
     private int alertIndicator;
 
     //bool to show which powers are active
-    private bool rainActive = false;
-    private bool delugeActive = false;
-    private bool stormActive = false;
-    private bool freezeActive = false;
+    public bool rainActive;
+    public bool delugeActive;
+    public bool stormActive;
+    public bool freezeActive;
+
+   
 
     // Start is called before the first frame update
     void Start()

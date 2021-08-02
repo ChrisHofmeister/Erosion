@@ -3882,7 +3882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Emitter
+  m_text: Emitter2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4519,6 +4519,10 @@ MonoBehaviour:
   stormUsesDisplayText: {fileID: 7443645885993136947}
   stormUsesGO: {fileID: 7229011538017954229}
   activePower: 
+  rainActive: 0
+  delugeActive: 0
+  stormActive: 0
+  freezeActive: 0
 --- !u!4 &518293720722135663
 Transform:
   m_ObjectHideFlags: 0
@@ -5701,7 +5705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Battery
+  m_text: Batery2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

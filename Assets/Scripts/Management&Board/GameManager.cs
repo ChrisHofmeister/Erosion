@@ -112,8 +112,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         edgeReached = false;
-        storyManager = FindObjectOfType<StoryManager>();
+        storyManager = FindObjectOfType<StoryManager>();        
         menuPanels.SetActive(false);
         colliderCover = GameObject.FindGameObjectWithTag("collidercover");
         colliderCover.SetActive(false);
@@ -126,7 +127,16 @@ public class GameManager : MonoBehaviour
         powerLowText.SetActive(false);
         niceWorkHeader.SetActive(false);
         batteryDeadHeader.SetActive(false);
-        SetTurnTimer(board.boardSize);
+
+        if (storyModeActive)
+        {
+            SetStoryTurnTimer();
+        }
+        else
+        {
+            SetTurnTimer(board.boardSize);
+        }
+
         scoreText.text = score.ToString();
         reachedEdgeBeforeTimerZero = false;
         retryPanel.SetActive(false);
@@ -416,6 +426,13 @@ public class GameManager : MonoBehaviour
 
         turnTimerText.text = turnTimer.ToString();
     }
+
+    private void SetStoryTurnTimer()
+    {
+        turnTimer = storyManager.batterySizeSM;
+        turnTimerText.text = turnTimer.ToString();
+    }
+   
 
     private void UpdateTimer()
     {

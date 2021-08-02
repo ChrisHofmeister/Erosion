@@ -29,6 +29,12 @@ public class ResourceManager : MonoBehaviour
         storyManager = FindObjectOfType<StoryManager>();
         SetUpResources();
 
+        /* 
+        * AddResource("OR", "C", 20);
+        AddResource("IN", "C", 20);
+        AddResource("OR", "U", 20);
+        AddResource("IN", "U", 20);
+        */
     }
 
     // Update is called once per frame

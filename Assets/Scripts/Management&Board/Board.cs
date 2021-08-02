@@ -142,6 +142,10 @@ public class Board : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (storyModeActive)
+        {
+            boardSize = storyManager.availableUpgradesArraySM[0] + 3;
+        }
         //set started bool to false to allow game set up
         gameStarted = false;
         // setting board size equal to values from inspector, plus 2 is to account for the border
