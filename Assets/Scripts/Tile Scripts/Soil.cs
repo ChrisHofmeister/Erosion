@@ -64,7 +64,7 @@ public class Soil : MonoBehaviour
             childSeed.PlayGrowAnimation(waterNeighbors);
             if (gameManager.storyModeActive)
             {
-                CheckForAwardedResources();
+                //CheckForAwardedResources();
             }
         }
 
@@ -107,7 +107,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x, (int)transform.position.y + 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -121,7 +123,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x, (int)transform.position.y - 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -135,7 +139,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x + 1, (int)transform.position.y];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -148,7 +154,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x - 1, (int)transform.position.y];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150; 
@@ -161,7 +169,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x + 1, (int)transform.position.y + 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -174,7 +184,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x - 1, (int)transform.position.y + 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -187,7 +199,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x + 1, (int)transform.position.y - 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;
@@ -200,7 +214,9 @@ public class Soil : MonoBehaviour
         targetGameObject = board.allTilesArray[(int)transform.position.x - 1, (int)transform.position.y - 1];
 
         if (targetGameObject != null && targetGameObject.GetComponentInChildren<Water>() != null &&
-            targetGameObject.GetComponentInChildren<Water>().waterOn == true)
+            targetGameObject.GetComponentInChildren<Water>().waterOn == true &&
+            targetGameObject.transform.position.x >= 1 && targetGameObject.transform.position.x <= board.boardSize &&
+            targetGameObject.transform.position.y >= 1 && targetGameObject.transform.position.y <= board.boardSize)
         {
             waterNeighbors += 1;
             soilBonus += 150;

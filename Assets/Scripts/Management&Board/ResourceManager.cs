@@ -27,7 +27,7 @@ public class ResourceManager : MonoBehaviour
     void Start()
     {
         storyManager = FindObjectOfType<StoryManager>();
-        SetUpResources();
+        SetUpResources();        
 
         /* 
         * AddResource("OR", "C", 20);
@@ -153,7 +153,7 @@ public class ResourceManager : MonoBehaviour
             }
             if (resourceRarityTag == "R")
             {
-                rareInorganic = additionAmount;
+                rareInorganic += additionAmount;
             }
         }
     }

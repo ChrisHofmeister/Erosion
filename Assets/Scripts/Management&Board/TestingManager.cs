@@ -218,7 +218,7 @@ public class TestingManager : MonoBehaviour
         {
             if(allTextIndex % 2 == 0)
             {
-                testingUpgradeTypes[t] = text.text.ToString();
+                testingUpgradeTypes[t] = text.text[0].ToString();
                 t++;
             }
             else

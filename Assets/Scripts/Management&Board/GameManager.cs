@@ -108,6 +108,9 @@ public class GameManager : MonoBehaviour
     //bool for edge reached
     private bool edgeReached;
 
+    //public bool for endstate
+    public bool endState;
+
 
     // Start is called before the first frame update
     void Start()
@@ -338,10 +341,33 @@ public class GameManager : MonoBehaviour
                 reachedEdgeBeforeTimerZero = true;
                 edgeReached = true;
                 gameEndingTilePos = waterTile.transform.position;
-                StartCoroutine(EndGame());
-               
+                StartCoroutine(EndGame());                
             }
         }
+
+        if(turnTimer == 0 && !edgeReached)
+        {
+            StartCoroutine(EndGame());
+        }
+        else
+        {
+            if (!endState)
+            {
+                colliderCover.SetActive(false);
+                skipMoveButton.SetActive(true);
+                powersButton.SetActive(true);
+            }
+        }
+        /*
+        if (turnTimer == 5 && !edgeReached != true && lowPowerAlertHasBeenPlayed == false)
+        {
+
+            StartCoroutine(PowerLowAlert());
+
+        }
+        */
+
+        
     }
     //needed to wait for very small amount of time for the bedrock script to complete setup before checking for edge
     private void EndCheck()
@@ -352,26 +378,6 @@ public class GameManager : MonoBehaviour
 
 
         StartCoroutine(EdgeCheck());
-
-        if (turnTimer == 5 && reachedEdgeBeforeTimerZero != true && lowPowerAlertHasBeenPlayed == false)
-        {
-
-            StartCoroutine(PowerLowAlert());
-
-        }
-
-        if(turnTimer == 0 && reachedEdgeBeforeTimerZero != true)
-        {
-            StartCoroutine(EndGame());
-        }
-
-        if(turnTimer != 5 && reachedEdgeBeforeTimerZero != true)
-        {
-            colliderCover.SetActive(false);
-            skipMoveButton.SetActive(true);
-            powersButton.SetActive(true);
-        }
-
     }
 
     IEnumerator PowerUseEndCheck()
@@ -537,13 +543,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator EndGame()
     {
-        TurnOffNumbers();
+        endState = true;        
         skipMoveButton.SetActive(false);
         powersButton.SetActive(false);
         colliderCover.SetActive(true);
         CalculateSoilBonus();
         CalcFinalScores();
-        if (!reachedEdgeBeforeTimerZero)
+        if (!reachedEdgeBeforeTimerZero && !edgeReached)
         {
             batteryDeadHeader.SetActive(true);
             characterEmote.EmoteAngry();
@@ -577,9 +583,15 @@ public class GameManager : MonoBehaviour
         characterEmote.EmoteIdle();
         endGamePanel.SetActive(false);
 
-        yield return new WaitForSeconds(.5f);
-        InitiateRetryPanel();
-
+        if (!storyModeActive)
+        {
+            yield return new WaitForSeconds(.5f);
+            InitiateRetryPanel();
+        }
+        else
+        {   
+            InitiateClickToContinue();
+        }
     }
 
     IEnumerator StoryEndGame()
@@ -689,11 +701,12 @@ public class GameManager : MonoBehaviour
         characterEmote.EmoteQuestion();
         retryFinalScoreValue.text = egFinalScore.ToString();
         retryPanel.SetActive(true);
+    }
 
-        if (storyModeActive)
-        {
-            storyManager.SwitchMapStageMode();
-        }
+    private void InitiateClickToContinue()
+    {
+        storyManager.SaveStoryManager();        
+        retryPanel.SetActive(true);
     }
 
     private void CheckForFirstCompletion()
@@ -702,18 +715,6 @@ public class GameManager : MonoBehaviour
         {
             storyManager.stageProgressArray[storyManager.stageIndex] = true;
             storyManager.stageProgress++;
-            if(storyManager.stageProgress == 5)
-            {
-                storyManager.mapProgress = 1;
-            }
-            if (storyManager.stageProgress == 10)
-            {
-                storyManager.mapProgress = 2;
-            }
-            if (storyManager.stageProgress == 15)
-            {
-                storyManager.mapProgress = 3;
-            }
         }
     }
 

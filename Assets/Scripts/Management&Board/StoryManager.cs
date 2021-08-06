@@ -9,7 +9,9 @@ public class StoryManager : MonoBehaviour
     public bool[] stageProgressArray;
     public int mapProgress;
     public int stageIndex;
-    
+
+    //save data bool
+    public bool saveDataExists;
 
     [SerializeField] GameObject[] stageButtonsArray;
 
@@ -28,17 +30,20 @@ public class StoryManager : MonoBehaviour
     private int riverEndPos;
 
     //managers
-    private SceneLoader sceneLoader;   
-    
+    private SceneLoader sceneLoader;
+
 
     //bools for map mode and stage mode
-    public bool mapModeActive = false;
-    public bool stageModeActive = true;
+    public bool mapModeActive;
+    public bool stageModeActive;
 
     //vars for testing mode
     public bool testingModeActive;
     public string[] testingUpgradeTypesSM;
     public int[] testingUpgradeCostsSM;
+
+    //bool to see if save data was loaded
+    public bool dataLoadedFromSave;
 
     //arrays of data from managers to be updated when they are recreated
 
@@ -49,6 +54,10 @@ public class StoryManager : MonoBehaviour
     //0-CO, 1-UO, 2-RO, 3-CI, 4-UI, 5-RI
     public int[] availableResourcesArraySM;
 
+    //checklist bool array
+    public bool[] checklistComplete;
+    public bool allChecklistItemsComplete;
+
     private void Awake()
     {
         SetUpSingleton();
@@ -57,9 +66,17 @@ public class StoryManager : MonoBehaviour
         stageProgressArray = new bool[20];
         testingUpgradeTypesSM = new string[48];
         testingUpgradeCostsSM = new int[48];
-        ResetAllUpgrades();
+        checklistComplete = new bool[4];
+
+        if (!dataLoadedFromSave)
+        {
+            ResetAllUpgrades();
+        }
+
         stageProgress = 0;
         mapProgress = 0;
+
+        CheckForSaveData();
     }
     // Start is called before the first frame update
     void Start()
@@ -67,11 +84,17 @@ public class StoryManager : MonoBehaviour
 
         sceneLoader = FindObjectOfType<SceneLoader>();
 
-        availableUpgradesArraySM[0] = 0;
-        availableUpgradesArraySM[2] = 0;
+        if (!dataLoadedFromSave)
+        {
+            availableUpgradesArraySM[0] = 0;
+            availableUpgradesArraySM[2] = 0;
+        }
 
         mapModeActive = true;
         stageModeActive = false;
+
+
+       
 
     }
 
@@ -80,6 +103,7 @@ public class StoryManager : MonoBehaviour
     {
         boardSizeSM = (availableUpgradesArraySM[0] + 3) * (availableUpgradesArraySM[0] + 3);
         batterySizeSM = 10 + (availableUpgradesArraySM[2] * 5);
+        CheckForCompletedChecklist();
     }
 
     private void SetUpSingleton()
@@ -96,19 +120,19 @@ public class StoryManager : MonoBehaviour
 
     private void UpgradeProgress()
     {
-        if(stageProgress == 1)
+        if(stageProgress == 0)
         {
             availableUpgradesArraySM[4] = 0;
         }
-        if(stageProgress == 5)
+        if(stageProgress == 6)
         {
             availableUpgradesArraySM[6] = 0;
         }
-        if (stageProgress == 10)
+        if (stageProgress == 11)
         {
             availableUpgradesArraySM[8] = 0;
         }
-        if (stageProgress == 15)
+        if (stageProgress == 16)
         {
             availableUpgradesArraySM[10] = 0;
         }
@@ -164,5 +188,61 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    public void SaveStoryManager()
+    {
+        SaveSystem.SaveStoryManager(this);
 
+    }
+
+    public void LoadPlayerDataIntoStoryMode(PlayerData data)
+    {
+
+        dataLoadedFromSave = true;
+
+        stageProgress = data.stageProgressPD;
+        stageProgressArray = data.stageProgressArrayPD;
+        mapProgress = data.mapProgressPD;
+
+        availableUpgradesArraySM = data.availableUpgradesArrayPD;
+        availableResourcesArraySM = data.availableResourcesArrayPD;
+
+        testingModeActive = data.testingModeActivePD;
+        testingUpgradeTypesSM = data.testingUpgradeTypesPD;
+        testingUpgradeCostsSM = data.testingUpgradeCostsPD;
+
+
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
+    public void CheckForSaveData()
+    {
+        saveDataExists = SaveSystem.SaveDataExists();
+    }
+
+    private void CheckForCompletedChecklist()
+    {
+        int numberOfCompletedItems = 0;
+
+        foreach(bool item in checklistComplete)
+        {
+            if (item)
+            {
+                numberOfCompletedItems++;
+            }
+        }
+
+        if(numberOfCompletedItems == checklistComplete.Length)
+        {
+            allChecklistItemsComplete = true;
+        }
+        else
+        {
+            allChecklistItemsComplete = false;
+        }
+    }
+   
 }

@@ -14,8 +14,15 @@ public class Number : MonoBehaviour
     public float spinSpeed;
     private Animator anim;
 
+    private SpriteRenderer spriteRenderer;
+
+    //managers
+    private GameManager gameManager;
+
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         displayNumberIndex = 0;
         erosionPoint = FindObjectOfType<ErosionPoint>();
         board = FindObjectOfType<Board>();
@@ -28,7 +35,10 @@ public class Number : MonoBehaviour
 
     private void Update()
     {
-        
+        if (gameManager.endState)
+        {
+            spriteRenderer.sprite = null;
+        }
     }
 
     public void UpdateDisplayNumber(int resistance)
@@ -38,7 +48,7 @@ public class Number : MonoBehaviour
         int numberToUse = resistance;
         if (resistance >= 0)
         {
-            GetComponent<SpriteRenderer>().sprite = numberSprites[numberToUse];
+            spriteRenderer.sprite = numberSprites[numberToUse];
         }
         else
         {
@@ -60,7 +70,7 @@ public class Number : MonoBehaviour
         if (parentEarthTile.resistance >= 0)
         {
             displayNumberIndex = parentEarthTile.resistance;
-            GetComponent<SpriteRenderer>().sprite = numberSprites[displayNumberIndex];            
+            spriteRenderer.sprite = numberSprites[displayNumberIndex];            
         }
         else
         {

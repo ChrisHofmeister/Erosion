@@ -65,7 +65,7 @@ public class PowersManager : MonoBehaviour
 
     //managers
     private GameManager gameManager;
-    private StoryManager storyManager;
+    private StoryManager storyManager;    
 
     //erosion point
     private ErosionPoint erosionPoint;
@@ -79,7 +79,9 @@ public class PowersManager : MonoBehaviour
     public bool stormActive;
     public bool freezeActive;
 
-   
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -173,6 +175,7 @@ public class PowersManager : MonoBehaviour
             rainActive = true;
             rainCostGO.SetActive(true);
             rainUsesGO.SetActive(true);
+
         }
         if (power == "deluge")
         {

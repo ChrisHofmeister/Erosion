@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6653357969547056143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6653357969547056142}
+  - component: {fileID: 6653357969547056137}
+  m_Layer: 0
+  m_Name: Upgrades Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6653357969547056142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6653357969547056143}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.2576923, y: 4.594404, z: 11.011809}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6653357969547056137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6653357969547056143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a4de6031b2dd649ad17f108afd5db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enoughResrouces1: 0
+  enoughResrouces2: 0
+  backButton: {fileID: 0}
+  powersButton: {fileID: 0}
+  resourcesButton: {fileID: 0}
+  upgradePromptPanel: {fileID: 0}
+  upgradeQuestionText: {fileID: 0}
+  yesUpgradeButton: {fileID: 0}
+  noUpgradeButton: {fileID: 0}
+  notEnoughResroucesAlertText: {fileID: 0}
+  emitterTextGO: {fileID: 0}
+  emitterButtonText: {fileID: 0}
+  emitterButtonGO: {fileID: 0}
+  emitterResourceTypeText: {fileID: 0}
+  emitterResourceTypeGO: {fileID: 0}
+  emitterCostText: {fileID: 0}
+  emitterCostGO: {fileID: 0}
+  batteryTextGO: {fileID: 0}
+  batteryButtonText: {fileID: 0}
+  batteryButtonGO: {fileID: 0}
+  batteryResourceTypeText: {fileID: 0}
+  batteryResourceTypeGO: {fileID: 0}
+  batteryCostText: {fileID: 0}
+  batteryCostGO: {fileID: 0}
+  rainTextGO: {fileID: 0}
+  rainButtonText: {fileID: 0}
+  rainButtonGO: {fileID: 0}
+  rainResourceTypeText: {fileID: 0}
+  rainResourceTypeGO: {fileID: 0}
+  rainCostText: {fileID: 0}
+  rainCostGO: {fileID: 0}
+  delugeTextGO: {fileID: 0}
+  delugeButtonText: {fileID: 0}
+  delugeButtonGO: {fileID: 0}
+  delugeResourceTypeText: {fileID: 0}
+  delugeResourceTypeGO: {fileID: 0}
+  delugeCostText: {fileID: 0}
+  delugeCostGO: {fileID: 0}
+  stormTextGO: {fileID: 0}
+  stormButtonText: {fileID: 0}
+  stormButtonGO: {fileID: 0}
+  stormResourceTypeText: {fileID: 0}
+  stormResourceTypeGO: {fileID: 0}
+  stormCostText: {fileID: 0}
+  stormCostGO: {fileID: 0}
+  freezeTextGO: {fileID: 0}
+  freezeButtonText: {fileID: 0}
+  freezeButtonGO: {fileID: 0}
+  freezeResourceTypeText: {fileID: 0}
+  freezeResourceTypeGO: {fileID: 0}
+  freezeCostText: {fileID: 0}
+  freezeCostGO: {fileID: 0}
+  rainExplainerTextGO: {fileID: 0}
+  delugeExplainerTextGO: {fileID: 0}
+  stormExplainerTextGO: {fileID: 0}
+  freezeExplainerTextGO: {fileID: 0}
